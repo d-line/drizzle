@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as bodyParser from "body-parser";
 
 function loggerMiddleware(
   req: express.Request,
@@ -11,6 +12,11 @@ function loggerMiddleware(
 
 const app = express();
 app.use(loggerMiddleware);
+app.use(bodyParser.json());
+
+app.post("/", (req, res) => {
+  res.send(req.body);
+});
 
 app.get("/hello", (req, res) => {
   res.send("Hello World!");
